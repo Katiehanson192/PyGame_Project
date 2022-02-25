@@ -2,10 +2,10 @@ import pygame
 
 class Ship:
     #this classes manages all of the code for the ship element
-    def __init__(self, ai_game):
+    def __init__(self, ai_game):   #ai is from the game instance created in the class file for Alien Invasion
         #initialize game ship + set starting location
         self.screen = ai_game.screen
-        self.screen_rect = ai_game.screen.get_rect()
+        self.screen_rect = ai_game.screen.get_rect() #so we can place ship at correct location of screen
 
         #load ship image and get its rect.
         self.image = pygame.image.load('ship.bmp')
@@ -16,4 +16,4 @@ class Ship:
 
         def blitme(self):
             #draw the ship at its current location
-            self.screen.blit(self.image, self.rect)
+            self.screen.blit(self.image, self.rect)    #Draws image on screen @ position specified by self.rect
