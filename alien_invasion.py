@@ -39,11 +39,16 @@ class AlienInvasion:
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
                     self.ship.moving_right = True  #if right arrow is pressed, chance the moving_right object? in Ship file to True!
+                elif event.key == pygame.K_LEFT:
+                    self.ship.moving_left = True
+                
             elif event.type == pygame.KEYUP:  #set the moving_right object? to False once key isn't pressed anymore
                 if event.key == pygame.K_RIGHT:
                     self.ship.moving_right = False
                     #move ship to the right when right arrow is pressed
                     #self.ship.rect.x += 1  #moves ship to the right 1 pixel 
+                elif event.key == pygame.K_LEFT:
+                    self.ship.moving_left = False
 
     def _update_screen(self):
             #redraw the screen during each pas through loop

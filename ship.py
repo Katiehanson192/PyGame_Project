@@ -16,11 +16,14 @@ class Ship:
 
         #Movement Flag
         self.moving_right = False
+        self.moving_left = False
 
     def update(self):
-        #update the ship's position based on the movement flag
+        #update the ship's position based on the movement flags
         if self.moving_right:
             self.rect.x += 1
+        if self.moving_left:  #use 2 If stmts bc that puts them at equal priority. Elif always prioritizes the first stmt? Makes movements more accurate in case player hits both keys
+            self.rect.x -=1       
 
 
     def blitme(self):
