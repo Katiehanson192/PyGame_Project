@@ -10,15 +10,15 @@ class AlienInvasion:
     ##initialize game, and create game assests and behavior.
     def __init__(self):
         pygame.init() #why don't we need a "self." argument??
-        self.screen = pygame.display.set_mode((1200, 800))  #represents entire game window
-        self.settings = Settings()
+        #self.screen = pygame.display.set_mode((1200, 800))  #represents entire game window
+        self.settings = Settings() #creating an instance of settings
 
-        self.screen() = pygame.display.set_mode((self.settings.screen_width, self.settings.scree_height))
+        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.scree_height))
 
         pygame.display.set_caption("Alien Invasion")
 
         #change background color
-        self.bg_color = (230, 230, 230)
+        #self.bg_color = (230, 230, 230)
 
     def run_game(self):
         #starting main loop for the game!
@@ -29,7 +29,7 @@ class AlienInvasion:
                     sys.exit()
 
             #redraw the screen during each pas through loop
-            self.screen.fill(self.bg_color)
+            self.screen.fill(self.settings.bg_color)
             
             #make most recently drawn screen visible
             pygame.display.flip() #How it game elements move/dissapear
