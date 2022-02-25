@@ -2,6 +2,8 @@ import sys
 
 import pygame
 
+from settings import Settings
+
 class AlienInvasion:
     #overall class to manage game assets and behavior
 
@@ -9,6 +11,9 @@ class AlienInvasion:
     def __init__(self):
         pygame.init() #why don't we need a "self." argument??
         self.screen = pygame.display.set_mode((1200, 800))  #represents entire game window
+        self.settings = Settings()
+
+        self.screen() = pygame.display.set_mode((self.settings.screen_width, self.settings.scree_height))
 
         pygame.display.set_caption("Alien Invasion")
 
