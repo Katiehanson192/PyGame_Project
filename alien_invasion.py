@@ -25,8 +25,11 @@ class AlienInvasion:
 
     def run_game(self):
         #starting main loop for the game!
-        while True:
-            #looking for keyboard/mouse clicks from user
+        while True:  #looking for keyboard/mouse clicks from user
+            self._check_events()
+
+        def _check_events():
+            #respond to key presses and mouse clicks
             for event in pygame.event.get():  #returns list of events that have taken place since last time the function was called
                 if event.type ==pygame.QUIT:
                     sys.exit()
