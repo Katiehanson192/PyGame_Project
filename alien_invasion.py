@@ -28,6 +28,7 @@ class AlienInvasion:
         while True:  #looking for keyboard/mouse clicks from user
             self._check_events()
             self._update_screen()
+            self.ship.update  #this calls the update method in the ship file, it can correctly move right
 
     def _check_events(self):
         #respond to key presses and mouse clicks
@@ -37,8 +38,12 @@ class AlienInvasion:
             
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = True  #if right arrow is pressed, chance the moving_right object? in Ship file to True!
+            elif event.type == pygame.KEYUP:  #set the moving_right object? to False once key isn't pressed anymore
+                if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = False
                     #move ship to the right when right arrow is pressed
-                    self.ship.rect.x += 1  #moves ship to the right 1 pixel 
+                    #self.ship.rect.x += 1  #moves ship to the right 1 pixel 
 
     def _update_screen(self):
             #redraw the screen during each pas through loop
