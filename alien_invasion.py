@@ -12,13 +12,19 @@ class AlienInvasion:
 
         pygame.display.set_caption("Alien Invasion")
 
-    def run_game():
+        #change background color
+        self.bg_color = (230, 230, 230)
+
+    def run_game(self):
         #starting main loop for the game!
         while True:
             #looking for keyboard/mouse clicks from user
             for event in pygame.event.get():  #returns list of events that have taken place since last time the function was called
                 if event.type ==pygame.QUIT:
                     sys.exit()
+
+            #redraw the screen during each pas through loop
+            self.screen.fill(self.bg_color)
             
             #make most recently drawn screen visible
             pygame.display.flip() #How it game elements move/dissapear
