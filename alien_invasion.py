@@ -27,13 +27,15 @@ class AlienInvasion:
         #starting main loop for the game!
         while True:  #looking for keyboard/mouse clicks from user
             self._check_events()
+            self._update_screen()
 
-        def _check_events():
-            #respond to key presses and mouse clicks
-            for event in pygame.event.get():  #returns list of events that have taken place since last time the function was called
-                if event.type ==pygame.QUIT:
-                    sys.exit()
+    def _check_events(self):
+        #respond to key presses and mouse clicks
+        for event in pygame.event.get():  #returns list of events that have taken place since last time the function was called
+            if event.type ==pygame.QUIT:
+                sys.exit()
 
+    def _update_screen(self):
             #redraw the screen during each pas through loop
             self.screen.fill(self.settings.bg_color)
             self.ship.blitme() #this draws ship on screen and puts it on top of the bg color
