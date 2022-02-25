@@ -28,7 +28,7 @@ class AlienInvasion:
         while True:  #looking for keyboard/mouse clicks from user
             self._check_events()
             self._update_screen()
-            self.ship.update  #this calls the update method in the ship file, it can correctly move right
+            self.ship.update()  #this calls the update method in the ship file, it can correctly move right
 
     def _check_events(self):
         #respond to key presses and mouse clicks
