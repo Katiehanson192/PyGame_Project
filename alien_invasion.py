@@ -37,13 +37,9 @@ class AlienInvasion:
         while True:  #looking for keyboard/mouse clicks from user
             self._check_events()
             self._update_screen()
+            self._update_bullets()
             self.ship.update()  #this calls the update method in the ship file, it can correctly move right
-            self.bullets.update() #update position of the bullets
-
-            #get rid of bullets that have reached past top of screen
-            for bullet in self.bullets.copy():  #can't remove items in a list in a for loop, so use copy
-                if bullet.rect.bottom <=0: #check to see if the bullet has dissapeared at top of screen
-                    self.bullets.remove(bullet) #if yes, remove bulletn
+            
             #print(len(self.bullets))
 
     def _check_events(self):
@@ -80,6 +76,18 @@ class AlienInvasion:
         if len(self.bullets) < self.settings.bullets_allowed: #checks to see if # of bullets fired, doesn't exceed allowed amount in settings before firing more bullets
             new_bullet = Bullet(self) #instance of Bullet called new bullet
             self.bullets.add(new_bullet) #add that new instance the group bullets()
+
+    def _update_bullets(self):
+        #update position of bullets and get rid of old bullets
+        
+        #update bullet position
+        self.bullets.update()
+
+        #get rid of bullets that have disappeared
+        for bullet in self.bullets.copy():  #can't remove items in a list in a for loop, so use copy
+            if bullet.rect.bottom <=0: #check to see if the bullet has dissapeared at top of screen
+                self.bullets.remove(bullet) #if yes, remove bulletn
+
 
     def _update_screen(self):
             #redraw the screen during each pas through loop
