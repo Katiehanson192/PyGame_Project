@@ -1,3 +1,4 @@
+from lib2to3 import pygram
 import sys
 
 import pygame
@@ -24,6 +25,9 @@ class AlienInvasion:
 
         self.ship = Ship(self) #makes instance of the ship after screen has been created
 
+        #Bullet 
+        self.bullets = pygame.sprite.Group() #used to store live bullets 
+
         #change background color
         #self.bg_color = (230, 230, 230)
 
@@ -33,6 +37,7 @@ class AlienInvasion:
             self._check_events()
             self._update_screen()
             self.ship.update()  #this calls the update method in the ship file, it can correctly move right
+            self.bullets.update() #update position of the bullets
 
     def _check_events(self):
         #respond to key presses and mouse clicks
