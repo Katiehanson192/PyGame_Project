@@ -16,6 +16,10 @@ class AlienInvasion:
 
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.scree_height))
 
+        self.screen = pygame. display.set_mode((0,0), pygame.FULLSCREEN)
+        self.settings.screen_width = self.screen.get_rect().width
+        self.settings.screen_height = self.screen.get_rect().height
+
         pygame.display.set_caption("Alien Invasion")
 
         self.ship = Ship(self) #makes instance of the ship after screen has been created
@@ -46,7 +50,7 @@ class AlienInvasion:
             self.ship.moving_right = True  #if right arrow is pressed, chance the moving_right object? in Ship file to True!
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = True
-        elif event.key == pygame.K_q:
+        elif event.key == pygame.K_q: #Q to Quit
             sys.exit()
                 
     def _check_keyup_events(self,event):
