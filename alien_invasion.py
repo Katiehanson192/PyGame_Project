@@ -40,6 +40,12 @@ class AlienInvasion:
             self.ship.update()  #this calls the update method in the ship file, it can correctly move right
             self.bullets.update() #update position of the bullets
 
+            #get rid of bullets that have reached past top of screen
+            for bullet in self.bullets.copy():  #can't remove items in a list in a for loop, so use copy
+                if bullet.rect.bottom <=0: #check to see if the bullet has dissapeared at top of screen
+                    self.bullets.remove(bullet) #if yes, remove bulletn
+            #print(len(self.bullets))
+
     def _check_events(self):
         #respond to key presses and mouse clicks
         for event in pygame.event.get():  #returns list of events that have taken place since last time the function was called
