@@ -46,6 +46,8 @@ class AlienInvasion:
             self.ship.moving_right = True  #if right arrow is pressed, chance the moving_right object? in Ship file to True!
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = True
+        elif event.key == pygame.K_q:
+            sys.exit()
                 
     def _check_keyup_events(self,event):
         if event.key == pygame.K_RIGHT:
