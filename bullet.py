@@ -27,4 +27,4 @@ class Bullet(Sprite): #Sprite  = group related elements of game + act on all gro
 
     def draw_bullet(self):
         #draw bullet to scren
-        pygame.draw.rect.(self.screen, self.color, self.rect)
+        pygame.draw.rect(self.screen, self.color, self.rect)
