@@ -38,9 +38,10 @@ class AlienInvasion:
         #starting main loop for the game!
         while True:  #looking for keyboard/mouse clicks from user
             self._check_events()
-            self._update_screen()
-            self._update_bullets()
             self.ship.update()  #this calls the update method in the ship file, it can correctly move right
+            self._update_bullets()
+            self._update_aliens()
+            self._update_screen()
             
             #print(len(self.bullets))
 
@@ -120,6 +121,10 @@ class AlienInvasion:
         alien.rect.x = alien.x
         alien.rect.y = alien_height + 2*alien.rect.height*row_number #each row starts 2 alien heights apart
         self.aliens.add(alien) #adding that instance to the fleet holding all of the other aliens
+
+    def _update_aliens(self):
+        #update position of all aliens in the fleet
+        self.aliens.update() #corresponds to method in alien file that changes their position
 
 
     def _update_screen(self):

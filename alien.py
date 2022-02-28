@@ -8,6 +8,9 @@ class Alien(Sprite):
         #initialize alien + set starting position
         super().__init__()
         self.screen = ai_game.screen
+        
+        #working on alien speed
+        self.settings = ai_game.settings
 
         #load the alien image and set its rect attribute
         self.image = pygame.image.load('alien.bmp')
@@ -19,3 +22,8 @@ class Alien(Sprite):
 
         #store the alien's exact horizontal position
         self.x = float(self.rect.x) #tracks horizontal speed 
+
+    def update(self):
+        #move alien to the right
+        self.x +=self.settings.alien_speed #update alien's position each time by moving it the right by amt stored in alien_speed
+        self.rect.x = self.x #updates value of rect.x, which is the alien's position (self.x can store decimals and rect.x can't)
