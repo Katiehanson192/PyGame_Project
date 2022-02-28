@@ -103,13 +103,16 @@ class AlienInvasion:
 
         #create 1st row of aliens
         for alien_number in range(number_aliens_x):
-            #create alien + place in row
-            alien = Alien(self) #creates alien instance
-            alien.x = alien_width + 2*alien_width*alien_number #setting x coordinates. #each alien = pushed to the right 1 alien width from left margin
-                                                                #x2 b/c each alien takes up 2 spaces (to allow for 1 width of space b/t them)
+           self._create_alien(alien_number)
 
-            alien.rect.x = alien.x
-            self.aliens.add(alien) #adding that instance to the fleet holding all of the other aliens
+    def _create_alien(self, alien_number):
+         #create alien + place in row
+        alien = Alien(self) #creates alien instance
+        alien_width = alien.rect.width
+        alien.x = alien_width + 2*alien_width*alien_number #setting x coordinates. #each alien = pushed to the right 1 alien width from left margin
+                                                                    #x2 b/c each alien takes up 2 spaces (to allow for 1 width of space b/t them
+        alien.rect.x = alien.x
+        self.aliens.add(alien) #adding that instance to the fleet holding all of the other aliens
 
 
     def _update_screen(self):
