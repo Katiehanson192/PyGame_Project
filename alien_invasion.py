@@ -1,9 +1,13 @@
 import sys
+from time import sleep #pauses game for a bit once ship is hit
+
 import pygame
 from settings import Settings
+from game_stats import GameStats
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
+
 
 class AlienInvasion:
     #overall class to manage game assets and behavior
@@ -20,7 +24,11 @@ class AlienInvasion:
         self.settings.screen_width = self.screen.get_rect().width #making full screen
         self.settings.screen_height = self.screen.get_rect().height #making full screen
 
+
         pygame.display.set_caption("Alien Invasion")
+
+        #create instance to store game statistics
+        self.stats = GameStats(self)
         self.ship = Ship(self) #makes instance of the ship after screen has been created
 
         #Bullet 
@@ -145,6 +153,31 @@ class AlienInvasion:
             alien.rect.y += self.settings.fleet_drop_speed #change the y position by adding the drop speed amount 
         self.settings.fleet_direction *= - 1 #changes the fleet's direction by multiplying it's current value by -1 
 
+    def _ship_hit(self):
+        #respond to ships being hit by aliens
+        #decrment ships left
+        self.stats.ships_left -=1 #reduces ship count by 1
+
+        #get rid of any remaining aliens and bullets
+        self.aliens.empty()
+        self.bullets.empty()
+
+        #create a new fleet and center the ship
+        self._create_fleet()
+        self.ship.center_ship()
+
+        #pause
+        sleep(0.5) #pause before redrawing game so player knows they've been hit
+
+    def _check_aliens_bottom(self):
+        #check if any aliens have reached bottom of the screen
+        screen_rect = self.screen.get_rect()
+        for alien in self.aliens.sprites():
+            if alien.rect.bottom >=screen_rect.bottom:
+                #treat this the same as if the ship got hit
+                self._ship_hit
+
+
     def _update_aliens(self):
         #check if fleet is at an edge, then update position of all aliens in the fleet
         self._check_fleet_edges()#call the check fleet edges to check if the fleet is at an edge or not before updating the position of the aliens
@@ -152,7 +185,10 @@ class AlienInvasion:
 
         #look for alien and ship collision
         if pygame.sprite.spritecollideany(self.ship, self.aliens): #looks for any member of a group coming in contact with a sprite (ship), stops looking once it's found an alien that collided with the ship
-            print("Ship Hit!!")
+            self._ship_hit()
+
+        #look for aliens hitting bottom of the screen
+        self._check_aliens_bottom()
 
     def _update_screen(self):
             #redraw the screen during each pas through loop
