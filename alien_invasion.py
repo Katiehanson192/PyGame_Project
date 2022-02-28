@@ -1,4 +1,3 @@
-from lib2to3 import pygram
 import sys
 
 import pygame
@@ -95,23 +94,31 @@ class AlienInvasion:
         #create the fleet of aliens
         #make an alien
         alien = Alien(self) #creating an alien instance. Need this before calcs b/c need to know width and height
-        alien_width = alien.rect.width #stores alien width
+        alien_width, alien_height = alien.rect.width, alien.rect.height #stores alien width and height
         #find # of aliens that can fit in each row across the screen
         available_space_x = self.settings.screen_width - (2*alien_width) #this leaves space for the margins (1 alien width on each side)
         #find # of aliens in a row with spacing between them. spacing = width of 1 alien
         number_aliens_x = available_space_x // (2*alien_width)
 
-        #create 1st row of aliens
-        for alien_number in range(number_aliens_x):
-           self._create_alien(alien_number)
+        #determine # of rows of aliens that fit onto the screen
+        ship_height = self.ship.rect.height
+        available_space_y = (self.settings.scree_height - (3*alien_height)-ship_height) #vertical space available = sub alien height from top, ship height from bottom, and 2 alien heights from bottom
+        number_rows = available_space_y // (2*alien_height) #row height = 1 alien. space/height of 2 aliens
 
-    def _create_alien(self, alien_number):
+        #create fleet of aliens
+        for row_number in range(number_rows): #nested for loops needed to create multiple rows
+            for alien_number in range(number_aliens_x): #counts from 0 to # of rows we want
+                self._create_alien(alien_number, row_number) #creates an alien in row 1. Row_number argument allows each row to be placed farther down the screen
+
+    def _create_alien(self, alien_number, row_number):
          #create alien + place in row
         alien = Alien(self) #creates alien instance
+        alien_width, alien_height = alien.rect.size
         alien_width = alien.rect.width
         alien.x = alien_width + 2*alien_width*alien_number #setting x coordinates. #each alien = pushed to the right 1 alien width from left margin
                                                                     #x2 b/c each alien takes up 2 spaces (to allow for 1 width of space b/t them
         alien.rect.x = alien.x
+        alien.rect.y = alien_height + 2*alien.rect.height*row_number #each row starts 2 alien heights apart
         self.aliens.add(alien) #adding that instance to the fleet holding all of the other aliens
 
 
