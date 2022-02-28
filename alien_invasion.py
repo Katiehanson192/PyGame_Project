@@ -91,6 +91,10 @@ class AlienInvasion:
             if bullet.rect.bottom <=0: #check to see if the bullet has dissapeared at top of screen
                 self.bullets.remove(bullet) #if yes, remove bullet
 
+        #Code for when bullets collide with aliens
+        #   If hit, get rid of bullet and alien
+        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True) #detects if bullet and alien collide. "True" = remove each object upon collision
+
     def _create_fleet(self):
         #create the fleet of aliens
         #make an alien
