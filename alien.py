@@ -34,5 +34,5 @@ class Alien(Sprite):
         #move alien to the right or left
         self.x +=(self.settings.alien_speed *
                         self.settings.fleet_direction) #alien_speed * fleet_direction b/c determines if fleet moves left or right
-        self.x +=self.settings.alien_speed #update alien's position each time by moving it the right by amt stored in alien_speed
+        #self.x +=self.settings.alien_speed #update alien's position each time by moving it the right by amt stored in alien_speed
         self.rect.x = self.x #updates value of rect.x, which is the alien's position (self.x can store decimals and rect.x can't)

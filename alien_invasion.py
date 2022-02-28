@@ -122,8 +122,22 @@ class AlienInvasion:
         alien.rect.y = alien_height + 2*alien.rect.height*row_number #each row starts 2 alien heights apart
         self.aliens.add(alien) #adding that instance to the fleet holding all of the other aliens
 
+    def _check_fleet_edges(self):
+        #respond appropiately if any aliens have reached the left or right edge
+        for alien in self.aliens.sprites(): #for every alien stored in the alien sprites group,
+            if alien.check_edges(): #run the check_edges method in alien file--> check to see if the aliens hit either side of screen
+                self._change_fleet_direction() #if check_edges returns true, call the change_fleet_direction method and...
+                break #break the for loop 
+
+    def _change_fleet_direction(self):
+        #drop the entire fleet and change it's directions
+        for alien in self.aliens.sprites(): #loop through all the aliens in the sprites group
+            alien.rect.y += self.settings.fleet_drop_speed #change the y position by adding the drop speed amount 
+        self.settings.fleet_direction *= - 1 #changes the fleet's direction by multiplying it's current value by -1 
+
     def _update_aliens(self):
-        #update position of all aliens in the fleet
+        #check if fleet is at an edge, then update position of all aliens in the fleet
+        self._check_fleet_edges()#call the check fleet edges to check if the fleet is at an edge or not before updating the position of the aliens
         self.aliens.update() #corresponds to method in alien file that changes their position
 
 
