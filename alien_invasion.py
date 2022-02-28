@@ -6,6 +6,7 @@ import pygame
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
+from alien import Alien
 
 class AlienInvasion:
     #overall class to manage game assets and behavior
@@ -23,14 +24,16 @@ class AlienInvasion:
         self.settings.screen_height = self.screen.get_rect().height #making full screen
 
         pygame.display.set_caption("Alien Invasion")
-
         self.ship = Ship(self) #makes instance of the ship after screen has been created
 
         #Bullet 
         self.bullets = pygame.sprite.Group() #used to store live bullets 
 
-        #change background color
-        #self.bg_color = (230, 230, 230)
+        #Alien
+        self.aliens = pygame.sprite.Group()#store the aliens
+        self._create_fleet()
+
+
 
     def run_game(self):
         #starting main loop for the game!
@@ -86,7 +89,13 @@ class AlienInvasion:
         #get rid of bullets that have disappeared
         for bullet in self.bullets.copy():  #can't remove items in a list in a for loop, so use copy
             if bullet.rect.bottom <=0: #check to see if the bullet has dissapeared at top of screen
-                self.bullets.remove(bullet) #if yes, remove bulletn
+                self.bullets.remove(bullet) #if yes, remove bullet
+
+    def _create_fleet(self):
+        #create the fleet of aliens
+        #make an alien
+        alien = Alien(self) #creating an alien instance
+        self.aliens.add(alien) #adding that instance to the fleet holding all of the other aliens
 
 
     def _update_screen(self):
@@ -96,6 +105,9 @@ class AlienInvasion:
 
             for bullet in self.bullets.sprites(): #sprites method returns list of al aprites in the group
                 bullet.draw_bullet()  #to draw all bullets on screen, loop through draw_bullet method for all bullets in the group
+
+            #alien
+            self.aliens.draw(self.screen) #draw alien on screen
 
             #make most recently drawn screen visible
             pygame.display.flip() #How it game elements move/dissapear
