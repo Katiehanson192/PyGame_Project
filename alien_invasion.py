@@ -1,7 +1,5 @@
 import sys
-
 import pygame
-
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
@@ -91,13 +89,16 @@ class AlienInvasion:
             if bullet.rect.bottom <=0: #check to see if the bullet has dissapeared at top of screen
                 self.bullets.remove(bullet) #if yes, remove bullet
 
-        #Code for when bullets collide with aliens
+        self._check_bullet_alien_collision()
+
+    def _check_bullet_alien_collision(self):
+         #Code for when bullets collide with aliens
         #   If hit, get rid of bullet and alien
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True) #detects if bullet and alien collide. "True" = remove each object upon collision
                                                                                      #where individual aliens are destroyed
         if not self.aliens: #checks is alien group is empty, if yes, returns a false
             #destroy existing bullets and create new fleet
-            self.bullets.empty() #if no aliens, empty the group of bullets 
+            self.bullets.empty() #if no aliens, empty the group of bullets (remove any bullets that haven't collided)
             self._create_fleet() #calls method that fills the screen with aliens again
 
     def _create_fleet(self):
@@ -149,6 +150,9 @@ class AlienInvasion:
         self._check_fleet_edges()#call the check fleet edges to check if the fleet is at an edge or not before updating the position of the aliens
         self.aliens.update() #corresponds to method in alien file that changes their position
 
+        #look for alien and ship collision
+        if pygame.sprite.spritecollideany(self.ship, self.aliens): #looks for any member of a group coming in contact with a sprite (ship), stops looking once it's found an alien that collided with the ship
+            print("Ship Hit!!")
 
     def _update_screen(self):
             #redraw the screen during each pas through loop
