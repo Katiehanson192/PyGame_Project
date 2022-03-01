@@ -142,8 +142,8 @@ class AlienInvasion:
             for aliens in collisions.values(): #going through the collisions dictionary values (aliens hit)
                 self.stats.score +=self.settings.alien_points *len(aliens) #len(aliens) = length of the list of values in the dictionary--> # of aliens for each bullet in case a bullet hits more than 1 alien
             self.sb.prep_score() #checks to see if alien is in dictionary of eliminated objects, if yes, then adds points to scoreboard
+            self.sb.check_high_score() #checks to see if current score is higher than high score
         if not self.aliens: #checks is alien group is empty, if yes, returns a false
-            #destroy existing bullets and create new fleet
             self.bullets.empty() #if no aliens, empty the group of bullets (remove any bullets that haven't collided)
             self._create_fleet() #calls method that fills the screen with aliens again
             self.settings.increase_speed()

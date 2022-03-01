@@ -8,6 +8,9 @@ class GameStats:
         #start AI in inactive state
         self.game_active = False
 
+        #high scores
+        self.high_score =0 #shouldn't be reset, so put it here and not in reset_stats
+
 
     def reset_stats(self):
         #Initialize statistics that can change during the game
