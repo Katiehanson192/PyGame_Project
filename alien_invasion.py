@@ -4,6 +4,7 @@ from time import sleep #pauses game for a bit once ship is hit
 import pygame
 from settings import Settings
 from game_stats import GameStats
+from button import Button
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
@@ -37,6 +38,9 @@ class AlienInvasion:
         #Alien
         self.aliens = pygame.sprite.Group()#store the aliens
         self._create_fleet()
+
+        #make play button
+        self.play_button = Button(self, "Play") #creates instance of Button with label of "Play"
 
 
 
@@ -192,7 +196,7 @@ class AlienInvasion:
         #look for alien and ship collision
         if pygame.sprite.spritecollideany(self.ship, self.aliens): #looks for any member of a group coming in contact with a sprite (ship), stops looking once it's found an alien that collided with the ship
             self._ship_hit()
-            print('ship hit')
+            
 
         #look for aliens hitting bottom of the screen
         self._check_aliens_bottom()
@@ -208,6 +212,10 @@ class AlienInvasion:
 
             #alien
             self.aliens.draw(self.screen) #draw alien on screen
+
+            #draw play button on screen
+            if not self.stats.game_active:
+                self.play_button.draw_button() #create AFTER all other elements have been drawn but before flipping to new screen
 
             #make most recently drawn screen visible
             pygame.display.flip() #How it game elements move/dissapear
