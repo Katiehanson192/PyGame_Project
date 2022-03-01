@@ -4,6 +4,7 @@ from time import sleep #pauses game for a bit once ship is hit
 import pygame
 from settings import Settings
 from game_stats import GameStats
+from scoreboard import Scoreboard
 from button import Button
 from ship import Ship
 from bullet import Bullet
@@ -30,6 +31,7 @@ class AlienInvasion:
 
         #create instance to store game statistics
         self.stats = GameStats(self)
+        self.sb = Scoreboard(self)
         self.ship = Ship(self) #makes instance of the ship after screen has been created
 
         #Bullet 
@@ -238,6 +240,9 @@ class AlienInvasion:
 
             #alien
             self.aliens.draw(self.screen) #draw alien on screen
+
+            #scoreboard
+            self.sb.show_score()
 
             #draw play button on screen
             if not self.stats.game_active:
