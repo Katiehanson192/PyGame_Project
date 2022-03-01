@@ -11,7 +11,7 @@ class Settings:
         #Ship settings
         #self.ship_speed = 1.5  #determines how far to move the ship on each pass through the loop
                                 #need this b/c rect.x and rect.y only accept integers
-        self.ship_limit = 2
+        self.ship_limit = 3
 
         #Bullet settings
         #self.bullet_speed = 1.7

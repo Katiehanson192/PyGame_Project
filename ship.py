@@ -1,9 +1,11 @@
 import pygame
+from pygame.sprite import Sprite #to create group of ships for upper left corner
 
-class Ship:
+class Ship(Sprite):
     #this classes manages all of the code for the ship element
     def __init__(self, ai_game):   #ai is from the game instance created in the class file for Alien Invasion
         #initialize game ship + set starting location
+        super().__init__()
         self.screen = ai_game.screen
         self.settings = ai_game.settings  #create this so we can use it update(). Need to assign position to variable that can store a decimal value
         self.screen_rect = ai_game.screen.get_rect() #so we can place ship at correct location of screen
