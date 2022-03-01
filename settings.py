@@ -27,6 +27,9 @@ class Settings:
         #How quickly the game speeds up
         self.speedup_scale = 1.1
 
+        #How quickly alien point values increase for each level
+        self.score_scale = 1.5
+
         self.initialize_dynamic_settings() #initialize values for attributes that need to change throughout the game
 
     def initialize_dynamic_settings(self):
@@ -41,7 +44,10 @@ class Settings:
         self.alien_points = 50 #points will increase with every level
 
     def increase_speed(self):
-        #increase speed settings. increasing them for each level
+        #increase speed settings and alien point values. increasing them for each level
         self.ship_speed *=self.speedup_scale
         self.bullet_speed *= self.speedup_scale
         self.alien_speed *=self.speedup_scale
+
+        self.alien_points = int(self.alien_points *self.score_scale) #int function = increase points by whole numbers
+        print(self.alien_points)
