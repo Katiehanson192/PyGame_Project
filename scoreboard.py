@@ -17,6 +17,9 @@ class Scoreboard:
         self.prep_score()
         self.prep_high_score()
 
+        #Display current level
+        self.prep_level()
+
     def prep_score(self):
         #turn scoreboard into rendered image
         rounded_score = round(self.stats.score, -1) #-1 for round tells python to round to the nearest 10
@@ -45,11 +48,23 @@ class Scoreboard:
             self.stats.high_score = self.stats.score
             self.prep_high_score()
 
+    def prep_level(self):
+        #turn level into rendered image
+        level_str = str(self.stats.level)
+        self.level_image = self.font.render(level_str,True, self.text_color, self.settings.bg_color) #creates image from value stored stats.level
+
+        #position level to show below the score
+        self.level_rect = self.level_image.get_rect() 
+        self.level_rect.right = self.score_rect.right #align with socre's right position
+        self.level_rect.top = self.score_rect.bottom + 10 #puts at top, but 10 pixels lower than the high score
+
 
     def show_score(self):
         #draw scoreboard to screen
         self.screen.blit(self.score_image, self.score_rect)
         self.screen.blit(self.high_score_image, self.high_score_rect)
+        #show level
+        self.screen.blit(self.level_image, self.level_rect) #displays level on screen
 
 
 
