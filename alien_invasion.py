@@ -80,6 +80,7 @@ class AlienInvasion:
             self.settings.initialize_dynamic_settings()
             self.stats.reset_stats() #reset game stats, gives player 3 more ships
             self.stats.game_active = True
+            self.sb.prep_score() #reset the scoreboard when starting new game
 
             #get rid of any remaining aliens and bullets
             self.aliens.empty()
@@ -135,9 +136,11 @@ class AlienInvasion:
         #   If hit, get rid of bullet and alien
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True) #detects if bullet and alien collide. "True" = remove each object upon collision
                                                                                      #where individual aliens are destroyed
+                                                                                    #stores objects that collide in a dictionary. Key = bullet, value = alien hit
 
         if collisions:
-            self.stats.score +=self.settings.alien_points
+            for aliens in collisions.values(): #going through the collisions dictionary values (aliens hit)
+                self.stats.score +=self.settings.alien_points *len(aliens) #len(aliens) = length of the list of values in the dictionary--> # of aliens for each bullet in case a bullet hits more than 1 alien
             self.sb.prep_score() #checks to see if alien is in dictionary of eliminated objects, if yes, then adds points to scoreboard
         if not self.aliens: #checks is alien group is empty, if yes, returns a false
             #destroy existing bullets and create new fleet
